@@ -1,47 +1,34 @@
-{% if configurationForm.timePeriod is defined %}
-    <div class="two fields">
-    {% for field in configurationForm.timePeriod %}
-        {% if field.vars.name == 'end' %}
-        <div class="field">
-            {{ form_label(field) }}
-            {{ form_widget(field) }}
+{% from '@OdiseoSyliusReportPlugin/Form/_macros.html.twig' import report_form_field %}
 
-            <div class="ui checkbox">
-                <input id="timePeriod_end_today" type="checkbox" tabindex="0" class="hidden" {{ field.vars.data is same as(null)?'checked':'' }}>
-                <label for="timePeriod_end_today">{{ 'odiseo_sylius_report_plugin.ui.today'|trans }}</label>
-            </div>
+{% set has_hidden_fields = false %}
+
+{# Check if there is at least one hidden field #}
+{% for field in configurationForm %}
+    {% if field.vars.attr['data-hidden'] is defined  and field.vars.attr['data-hidden'] == true %}
+        {% set has_hidden_fields = true %}
+    {% endif %}
+{% endfor %}
+
+{# Render visible filters #}
+{% for field in configurationForm %}
+    {% if field.vars.attr['data-hidden'] is not defined or field.vars.attr['data-hidden'] is defined and field.vars.attr['data-hidden'] == false %}
+        {{ report_form_field(field, loop.index) }}
+    {% endif %}
+{% endfor %}
+
+{# Render hidden filters (more filters) #}
+{% if has_hidden_fields %}
+    <div class="ui accordion">
+        <div class="title">
+            <i class="dropdown icon"></i>
+            {{ 'odiseo_sylius_report_plugin.ui.more_filters'|trans }}
         </div>
-        {% else %}
-            {{ form_row(field) }}
-        {% endif %}
-
-        {% if loop.index is divisible by(2) and not loop.last %}
-    </div>
-    <div class="two fields">
-        {% endif %}
-    {% endfor %}
-    </div>
-{% endif %}
-
-<div class="ui accordion">
-    <div class="title">
-        <i class="dropdown icon"></i>
-        {{ 'odiseo_sylius_report_plugin.ui.more_filters'|trans }}
-    </div>
-    <div class="content">
-        {% set index = 1 %}
-        <div class="two fields">
-        {% for field in configurationForm %}
-            {% if field.vars.name != 'timePeriod' %}
-                {{ form_row(field) }}
-                {% if index is divisible by(2) %}
-        </div>
-        <div class="two fields">
+        <div class="content">
+            {% for field in configurationForm %}
+                {% if field.vars.attr['data-hidden'] is defined  and field.vars.attr['data-hidden'] == true %}
+                    {{ report_form_field(field, loop.index) }}
                 {% endif %}
-
-                {% set index = index+1 %}
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
         </div>
-    </div>
 </div>
+{% endif %}

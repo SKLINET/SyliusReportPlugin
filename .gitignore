@@ -15,3 +15,5 @@
 /behat.yml
 /phpspec.yml
 /phpunit.xml
+
+composer.phar

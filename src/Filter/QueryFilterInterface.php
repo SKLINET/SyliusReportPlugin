@@ -19,9 +19,17 @@ interface QueryFilterInterface
 
     public function reset(): void;
 
-    public function addLeftJoin(string $join, string $alias): string;
+    public function addLeftJoin(string $join, string $alias, $condition = null): string;
+
+    public function addJoin(string $join, string $alias): string;
 
     public function addTimePeriod(
+        array $configuration = [],
+        string $dateField = 'checkoutCompletedAt',
+        ?string $rootAlias = null
+    ): void;
+
+    public function addDateRange(
         array $configuration = [],
         string $dateField = 'checkoutCompletedAt',
         ?string $rootAlias = null

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Odiseo\SyliusReportPlugin\Form\Builder;
 
 use Odiseo\SyliusReportPlugin\Form\Type\AddressAutocompleteChoiceType;
+use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\DateRangeType;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\TimePeriodType;
 use Odiseo\SyliusReportPlugin\Form\Type\ProductAutocompleteChoiceType;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
@@ -119,19 +120,40 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         ;
     }
 
-    public function addChannel(FormBuilderInterface $builder): void
+    public function addDateRange(FormBuilderInterface $builder, array $options = []): void
     {
+        // Options
+        $options = array_merge([
+            //
+        ], $options);
+
         $builder
-            ->add('channel', ChoiceType::class, [
-                'attr' => [
-                    'class' => 'fluid search selection changeSelects'
-                ],
-                'label' => 'sylius.ui.channel',
-                'required' => false,
-                'multiple' => true,
-                'choices' => $this->buildChannelsChoices()
-            ])
+            ->add('dateRange', DateRangeType::class, $options)
         ;
+    }
+
+    public function addChannel(FormBuilderInterface $builder, array $options = []): void
+    {
+        $multiple = true;
+
+        if (isset($options['multiple'])) {
+            $multiple = $options['multiple'];
+        }
+
+        // Options
+        $options = array_merge([
+            'attr'     => [
+                'class'       => 'fluid search selection changeSelects',
+                'data-hidden' => true,
+            ],
+            'label'    => 'sylius.ui.channel',
+            'required' => false,
+            'multiple' => true,
+            'choices'  => $this->buildChannelsChoices($multiple),
+        ], $options);
+
+        $builder
+            ->add('channel', ChoiceType::class, $options);
     }
 
     public function addProduct(FormBuilderInterface $builder): void
@@ -162,12 +184,14 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         ;
     }
 
-    protected function buildChannelsChoices(): array
+    protected function buildChannelsChoices(bool $multiple = true): array
     {
-        $choices = [];
+        $choices  = [];
         $channels = $this->channelRepository->findAll();
 
-        $choices['odiseo_sylius_report_plugin.form.all_channels'] = 0;
+        if ($multiple) {
+            $choices['odiseo_sylius_report_plugin.form.all_channels'] = 0;
+        }
 
         /** @var ChannelInterface $channel */
         foreach ($channels as $channel) {

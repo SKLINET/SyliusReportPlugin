@@ -73,12 +73,23 @@ class QueryFilter implements QueryFilterInterface
         return [$selectPeriod, $selectGroupBy];
     }
 
-    public function addLeftJoin(string $join, string $alias): string
+    public function addLeftJoin(string $join, string $alias, $condition = null): string
     {
         if (!isset($this->joins[$join])) {
             $this->joins[$join] = $alias;
 
-            $this->qb->leftJoin($join, $alias);
+            $this->qb->leftJoin($join, $alias, $condition);
+        }
+
+        return $this->joins[$join];
+    }
+
+    public function addJoin(string $join, string $alias): string
+    {
+        if (!isset($this->joins[$join])) {
+            $this->joins[$join] = $alias;
+
+            $this->qb->join($join, $alias);
         }
 
         return $this->joins[$join];
@@ -129,12 +140,44 @@ class QueryFilter implements QueryFilterInterface
         }
     }
 
+    public function addDateRange(
+        array $configuration = [],
+        string $dateField = 'checkoutCompletedAt',
+        ?string $rootAlias = null
+    ): void {
+
+        /** @var \DateTime|null $from */
+        $from = $configuration['dateRange']['start'];
+        /** @var \DateTime|null $to */
+        $to = $configuration['dateRange']['end'];
+
+        if($from) {
+            $this->qb
+                ->andWhere($this->qb->expr()->gte($dateField, ':from'))
+                ->setParameter('from', $from->format('Y-m-d H:i:s'));
+        }
+
+        if($to) {
+            $this->qb
+                ->andWhere($this->qb->expr()->lte($dateField, ':to'))
+                ->setParameter('to', $to->format('Y-m-d H:i:s'));
+        }
+
+        if($from || $to) {
+             $this->qb
+                 ->orderBy($dateField);
+        }
+
+    }
+
     public function addChannel(
         array $configuration = [],
         ?string $field = null,
         ?string $rootAlias = null
     ): void {
-        if (isset($configuration['channel']) && count($configuration['channel']) > 0) {
+        $exists = is_array($configuration['channel']) ? count($configuration['channel']) > 0 : isset($configuration['channel']);
+
+        if (isset($configuration['channel']) &&  $exists) {
             $storeIds = [];
 
             if ($configuration['channel'] instanceof ChannelInterface) {

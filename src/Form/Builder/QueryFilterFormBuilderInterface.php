@@ -23,7 +23,9 @@ interface QueryFilterFormBuilderInterface
 
     public function addTimePeriod(FormBuilderInterface $builder): void;
 
-    public function addChannel(FormBuilderInterface $builder): void;
+    public function addDateRange(FormBuilderInterface $builder, array $options = []): void;
+
+    public function addChannel(FormBuilderInterface $builder, array $options = []): void;
 
     public function addProduct(FormBuilderInterface $builder): void;
 

@@ -1,0 +1,75 @@
+odiseo_sylius_report_plugin:
+    ui:
+        reports: Reporty
+        manage_reports: Spravovat reporty
+        renderers: Renderery
+        data_fetchers: Data Fetchers
+        no_data: Žádne data
+        new_report: Nový report
+        edit_report: Upravit report
+        there_are_no_reports_results: Žádne výsledky
+        export: Export
+        today: Dnes
+        daily: Denně
+        monthly: Měsíčně
+        yearly: Ročně
+        more_filters: Víc filtrů
+        table:
+            date: Datum
+            orders_quantity: Počet objednávek
+            products_quantity: Počet produktú
+            users_quantity: Počet uživatelú
+            carts_quantity: Počet košikú
+            products_total_money: Celkem produkty
+            net_total_money: Celkem
+            adjustment_total_money: Adjustments celkem
+            gross_total_money: Hrubý součet
+            shipment_method_name: Doprava
+            total_costs: Náklady
+            currency_code: Měna
+    menu:
+        admin:
+            reports: Reporty
+    form:
+        report:
+            name: Název
+            description: Popis
+        data_fetcher: Data Fetcher
+        renderer:
+            label:  Renderer
+            template: Template
+            chart:
+                type: Typ
+        time_period:
+            start: Začátek
+            end: Konec
+            period: Časový úsek
+            empty_records: Tisknout prázdné záznamy?
+        user_gender:
+            label: Pohlaví uživatele
+            male: Muž
+            female: Žena
+        shipping_country: Dodací země
+        shipping_city: Dodací město
+        shipping_province: Dodací province
+        shipping_postcode: Dodací PSČ
+        billing_country: Fakturační krajina
+        billing_city: Fakturační město
+        billing_province: Fakturační province
+        billing_postcode: Fakturační PSČ
+        orders: Objednávky
+        all_channels: Všechny kanály
+        category: Kategorie
+    renderer:
+        chart: Graf
+        table: Tabulka
+    data_fetcher:
+        user_registration: Registrace uživatele
+        sales_total: Prodeje celkem
+        number_of_orders: Počet objednávek
+
+odiseo_sylius_report_plugin_renderer_table: Tabulka
+odiseo_sylius_report_plugin_renderer_chart: Graf
+odiseo_sylius_report_plugin_data_fetcher_user_registration: Registrace uživatele
+odiseo_sylius_report_plugin_data_fetcher_sales_total: Prodeje celkem
+odiseo_sylius_report_plugin_data_fetcher_number_of_orders: Počet objednávek
