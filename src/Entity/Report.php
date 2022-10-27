@@ -25,7 +25,7 @@ class Report implements ReportInterface
     protected ?string $description = null;
     protected string $renderer = DefaultRenderers::TABLE;
     protected array $rendererConfiguration = [];
-    protected string $dataFetcher = DefaultDataFetchers::USER_REGISTRATION;
+    protected string $dataFetcher = DefaultDataFetchers::SHIPMENTS_TOTAL;
     protected array $dataFetcherConfiguration = [];
 
     public function __construct()

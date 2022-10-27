@@ -33,29 +33,29 @@ services:
             - { name: form.type, alias: odiseo_sylius_report }
 
     #REPORT DATAFETCHER CONFIGURATION TYPES
-    odiseo_sylius_report_plugin.form.type.data_fetcher.user_registration:
-        class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType
-        arguments: ['@odiseo_sylius_report_plugin.form_builder.query_filter']
-        tags:
-            - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_user_registration }
+#    odiseo_sylius_report_plugin.form.type.data_fetcher.user_registration:
+#        class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType
+#        arguments: ['@odiseo_sylius_report_plugin.form_builder.query_filter']
+#        tags:
+#            - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_user_registration }
+#
+#    odiseo_sylius_report_plugin.form.type.data_fetcher.sales_total:
+#        class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType
+#        arguments: ['@odiseo_sylius_report_plugin.form_builder.query_filter']
+#        tags:
+#            - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_sales_total }
 
-    odiseo_sylius_report_plugin.form.type.data_fetcher.sales_total:
-        class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType
-        arguments: ['@odiseo_sylius_report_plugin.form_builder.query_filter']
-        tags:
-            - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_sales_total }
+#    odiseo_sylius_report_plugin.form.type.data_fetcher.number_of_orders:
+#        class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\NumberOfOrdersType
+#        arguments: [ '@odiseo_sylius_report_plugin.form_builder.query_filter' ]
+#        tags:
+#            - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_number_of_orders }
 
     odiseo_sylius_report_plugin.form.type.data_fetcher.shipments_total:
         class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\ShipmentsTotalType
         arguments: ['@odiseo_sylius_report_plugin.form_builder.query_filter']
         tags:
             - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_shipments_total }
-
-    odiseo_sylius_report_plugin.form.type.data_fetcher.number_of_orders:
-        class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\NumberOfOrdersType
-        arguments: ['@odiseo_sylius_report_plugin.form_builder.query_filter']
-        tags:
-            - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_number_of_orders }
 
     #REPORT RENDERER CONFIGURATION TYPES
     odiseo_sylius_report_plugin.form.type.renderer.configuration.chart:
