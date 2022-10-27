@@ -143,28 +143,31 @@ class QueryFilter implements QueryFilterInterface
     public function addDateRange(
         array $configuration = [],
         string $dateField = 'checkoutCompletedAt',
-        ?string $rootAlias = null
+        ?string $rootAlias = null,
+        ?QueryBuilder $qb = null
     ): void {
 
         /** @var \DateTime|null $from */
         $from = $configuration['dateRange']['start'];
         /** @var \DateTime|null $to */
         $to = $configuration['dateRange']['end'];
+        //
+        $qb = $qb ?: $this->qb;
 
         if($from) {
-            $this->qb
-                ->andWhere($this->qb->expr()->gte($dateField, ':from'))
+            $qb
+                ->andWhere($qb->expr()->gte($dateField, ':from'))
                 ->setParameter('from', $from->format('Y-m-d H:i:s'));
         }
 
         if($to) {
-            $this->qb
-                ->andWhere($this->qb->expr()->lte($dateField, ':to'))
+            $qb
+                ->andWhere($qb->expr()->lte($dateField, ':to'))
                 ->setParameter('to', $to->format('Y-m-d H:i:s'));
         }
 
         if($from || $to) {
-             $this->qb
+             $qb
                  ->orderBy($dateField);
         }
 
@@ -173,9 +176,13 @@ class QueryFilter implements QueryFilterInterface
     public function addChannel(
         array $configuration = [],
         ?string $field = null,
-        ?string $rootAlias = null
+        ?string $rootAlias = null,
+        ?QueryBuilder $qb = null
     ): void {
         $exists = is_array($configuration['channel']) ? count($configuration['channel']) > 0 : isset($configuration['channel']);
+
+        //
+        $qb = $qb ?: $this->qb;
 
         if (isset($configuration['channel']) &&  $exists) {
             $storeIds = [];
@@ -192,14 +199,14 @@ class QueryFilter implements QueryFilterInterface
 
             if (null === $field) {
                 if (null === $rootAlias) {
-                    $rootAlias = $this->qb->getRootAliases()[0];
+                    $rootAlias = $qb->getRootAliases()[0];
                 }
 
                 $field = $rootAlias . '.channel';
             }
 
-            $this->qb
-                ->andWhere($this->qb->expr()->in($field, $storeIds))
+            $qb
+                ->andWhere($qb->expr()->in($field, $storeIds))
             ;
         }
     }
@@ -337,15 +344,17 @@ class QueryFilter implements QueryFilterInterface
         }
     }
 
-    public function addProduct(array $configuration = [], string $field = 'p.id'): void
+    public function addProduct(array $configuration = [], string $field = 'p.id', ?QueryBuilder $qb = null): void
     {
+        $qb = $qb ?: $this->qb;
+
         if (isset($configuration['product']) && count($configuration['product']) > 0) {
-            $products = $configuration['product']->map(function (ProductInterface $product): array {
+            $products = $configuration['product']->map(function (ProductInterface $product): int {
                 return $product->getId();
             })->toArray();
 
-            $this->qb
-                ->andWhere($this->qb->expr()->in($field, $products))
+            $qb
+                ->andWhere($qb->expr()->in($field, $products))
             ;
         }
     }

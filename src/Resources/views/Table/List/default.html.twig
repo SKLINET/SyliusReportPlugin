@@ -14,10 +14,15 @@
             </thead>
             <tbody>
             {% for valueData in values %}
+                {% set currency_code = valueData['currency_code'] is defined ? valueData['currency_code'] : null %}
                 <tr id="{{ loop.index }}">
                     <td>{{ loop.index }}</td>
-                    {% for value in valueData %}
-                        <td>{% if '_money' in labels[loop.index0] %}$ {% endif %}{{ value }}</td>
+                    {% for key, value in valueData %}
+                        {% if currency_code and key in ['total_cost', 'amount_total'] %}
+                            <td>{{ value|sylius_format_money(currency_code, sylius.localeCode) }}</td>
+                        {% else %}
+                            <td>{{ value }}</td>
+                        {% endif %}
                     {% endfor %}
                 </tr>
             {% endfor %}

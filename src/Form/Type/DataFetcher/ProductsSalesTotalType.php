@@ -24,6 +24,8 @@ class ProductsSalesTotalType extends BaseDataFetcherType
                 'data-hidden' => false,
             ],
         ]);
+        // Products
+        $this->queryFilterFormBuilder->addProduct($builder);
     }
 
     public function getBlockPrefix(): string

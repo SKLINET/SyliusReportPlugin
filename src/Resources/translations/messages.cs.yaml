@@ -27,6 +27,9 @@ odiseo_sylius_report_plugin:
             shipment_method_name: Doprava
             total_costs: Náklady
             currency_code: Měna
+            product_name: 'Produkt'
+            variant_name: 'Varianta'
+            sales: 'Prodeje'
     menu:
         admin:
             reports: Reporty

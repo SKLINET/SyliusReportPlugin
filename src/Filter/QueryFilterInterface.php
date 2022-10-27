@@ -32,13 +32,15 @@ interface QueryFilterInterface
     public function addDateRange(
         array $configuration = [],
         string $dateField = 'checkoutCompletedAt',
-        ?string $rootAlias = null
+        ?string $rootAlias = null,
+        ?QueryBuilder $qb = null
     ): void;
 
     public function addChannel(
         array $configuration = [],
         ?string $field = null,
-        ?string $rootAlias = null
+        ?string $rootAlias = null,
+        ?QueryBuilder $qb = null
     ): void;
 
     public function addUserGender(
@@ -72,7 +74,8 @@ interface QueryFilterInterface
 
     public function addProduct(
         array $configuration = [],
-        string $field = 'p.id'
+        string $field = 'p.id',
+        ?QueryBuilder $qb = null
     ): void;
 
     public function addProductCategory(

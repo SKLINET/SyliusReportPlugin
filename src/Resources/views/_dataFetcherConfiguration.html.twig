@@ -1,34 +1,65 @@
 {% from '@OdiseoSyliusReportPlugin/Form/_macros.html.twig' import report_form_field %}
 
-{% set has_hidden_fields = false %}
+{% set visible_fields = [] %}
+{% set hidden_fields = [] %}
 
-{# Check if there is at least one hidden field #}
 {% for field in configurationForm %}
     {% if field.vars.attr['data-hidden'] is defined  and field.vars.attr['data-hidden'] == true %}
-        {% set has_hidden_fields = true %}
+        {% set hidden_fields = hidden_fields|merge([field]) %}
+    {% else %}
+        {% set visible_fields = visible_fields|merge([field]) %}
     {% endif %}
 {% endfor %}
 
+
 {# Render visible filters #}
-{% for field in configurationForm %}
-    {% if field.vars.attr['data-hidden'] is not defined or field.vars.attr['data-hidden'] is defined and field.vars.attr['data-hidden'] == false %}
+{% set index = 0 %}
+{% for field in visible_fields %}
+    {% if field.vars['name'] in ['dateRange'] %}
         {{ report_form_field(field, loop.index) }}
+    {% else %}
+        {# First or even #}
+        {% if loop.first or index is divisible by(2) %}
+            <div class="two fields">
+            {{ report_form_field(field, loop.index) }}
+        {% else %}
+            {{ report_form_field(field, loop.index) }}
+        {% endif %}
+        {% set index = index + 1 %}
+        {# Last loop #}
+        {% if loop.last %}
+            </div>
+        {% endif %}
     {% endif %}
 {% endfor %}
 
 {# Render hidden filters (more filters) #}
-{% if has_hidden_fields %}
+{% if hidden_fields|length > 0 %}
+    {% set index = 0 %}
     <div class="ui accordion">
         <div class="title">
             <i class="dropdown icon"></i>
             {{ 'odiseo_sylius_report_plugin.ui.more_filters'|trans }}
         </div>
         <div class="content">
-            {% for field in configurationForm %}
-                {% if field.vars.attr['data-hidden'] is defined  and field.vars.attr['data-hidden'] == true %}
+            {% for field in visible_fields %}
+                {% if field.vars['name'] in ['dateRange'] %}
                     {{ report_form_field(field, loop.index) }}
+                {% else %}
+                    {# First or even #}
+                    {% if loop.first or index is divisible by(2) %}
+                        <div class="two fields">
+                        {{ report_form_field(field, loop.index) }}
+                    {% else %}
+                        {{ report_form_field(field, loop.index) }}
+                    {% endif %}
+                    {% set index = index + 1 %}
+                    {# Last loop #}
+                    {% if loop.last %}
+                        </div>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
         </div>
-</div>
+    </div>
 {% endif %}
