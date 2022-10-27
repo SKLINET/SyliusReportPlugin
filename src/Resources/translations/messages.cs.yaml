@@ -67,6 +67,7 @@ odiseo_sylius_report_plugin:
         user_registration: Registrace uživatele
         sales_total: Prodeje celkem
         number_of_orders: Počet objednávek
+        shipments_total: 'Poštovné celkem'
 
 odiseo_sylius_report_plugin_renderer_table: Tabulka
 odiseo_sylius_report_plugin_renderer_chart: Graf
