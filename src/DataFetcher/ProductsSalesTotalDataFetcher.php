@@ -6,7 +6,7 @@ namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Odiseo\SyliusReportPlugin\Filter\QueryFilterInterface;
-use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\ShipmentsTotalType;
+use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\ProductsSalesTotalType;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
@@ -16,8 +16,9 @@ use Sylius\Component\Shipping\Model\ShipmentInterface;
 /**
  *
  */
-class ShipmentsTotalDataFetcher extends BaseDataFetcher
+class ProductsSalesTotalDataFetcher extends BaseDataFetcher
 {
+    private string $orderClass;
 
     public function __construct(
         QueryFilterInterface $queryFilter
@@ -113,6 +114,6 @@ class ShipmentsTotalDataFetcher extends BaseDataFetcher
 
     public function getType(): string
     {
-        return ShipmentsTotalType::class;
+        return ProductsSalesTotalType::class;
     }
 }

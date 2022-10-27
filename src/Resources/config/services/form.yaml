@@ -57,6 +57,12 @@ services:
         tags:
             - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_shipments_total }
 
+    odiseo_sylius_report_plugin.form.type.data_fetcher.products_sales_total:
+        class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\ProductsSalesTotalType
+        arguments: ['@odiseo_sylius_report_plugin.form_builder.query_filter']
+        tags:
+            - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_products_sales_total }
+
     #REPORT RENDERER CONFIGURATION TYPES
     odiseo_sylius_report_plugin.form.type.renderer.configuration.chart:
         class: Odiseo\SyliusReportPlugin\Form\Type\Renderer\ChartConfigurationType

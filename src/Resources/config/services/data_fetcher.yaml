@@ -24,6 +24,12 @@ services:
 
     odiseo_sylius_report_plugin.data_fetcher.shipments_total:
         class: Odiseo\SyliusReportPlugin\DataFetcher\ShipmentsTotalDataFetcher
-        arguments: ['@odiseo_sylius_report_plugin.filter.query_filter', '%sylius.model.order.class%']
+        arguments: ['@odiseo_sylius_report_plugin.filter.query_filter']
         tags:
             - { name: odiseo_sylius_report_plugin.data_fetcher, fetcher: odiseo_sylius_report_plugin_data_fetcher_shipments_total, label: "odiseo_sylius_report_plugin.data_fetcher.shipments_total" }
+
+    odiseo_sylius_report_plugin.data_fetcher.products_sales_total:
+        class: Odiseo\SyliusReportPlugin\DataFetcher\ProductsSalesTotalDataFetcher
+        arguments: ['@odiseo_sylius_report_plugin.filter.query_filter', '%sylius.model.order.class%']
+        tags:
+            - { name: odiseo_sylius_report_plugin.data_fetcher, fetcher: odiseo_sylius_report_plugin_data_fetcher_products_sales_total, label: "odiseo_sylius_report_plugin.data_fetcher.products_sales_total" }

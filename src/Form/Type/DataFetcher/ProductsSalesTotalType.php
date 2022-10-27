@@ -6,7 +6,7 @@ namespace Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ShipmentsTotalType extends BaseDataFetcherType
+class ProductsSalesTotalType extends BaseDataFetcherType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -28,6 +28,6 @@ class ShipmentsTotalType extends BaseDataFetcherType
 
     public function getBlockPrefix(): string
     {
-        return 'odiseo_sylius_report_data_fetcher_shipments_total';
+        return 'odiseo_sylius_report_data_fetcher_products_sales_total';
     }
 }

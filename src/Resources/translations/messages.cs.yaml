@@ -68,6 +68,7 @@ odiseo_sylius_report_plugin:
         sales_total: Prodeje celkem
         number_of_orders: Počet objednávek
         shipments_total: 'Poštovné celkem'
+        products_sales_total: 'Prodeje dle produktú'
 
 odiseo_sylius_report_plugin_renderer_table: Tabulka
 odiseo_sylius_report_plugin_renderer_chart: Graf

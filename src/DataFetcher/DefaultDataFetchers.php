@@ -13,9 +13,14 @@ namespace Odiseo\SyliusReportPlugin\DataFetcher;
 final class DefaultDataFetchers
 {
     /**
-     * Number of orders data fetcher
+     * Number of shipments costs total
      */
     public const SHIPMENTS_TOTAL = 'odiseo_sylius_report_plugin_data_fetcher_shipments_total';
+
+    /**
+     * Number of products sales data fetcher
+     */
+    public const PRODUCTS_SALES_TOTAL = 'odiseo_sylius_report_plugin_data_fetcher_products_sales_total';
 
     /**
      * User registrations data fetcher
