@@ -1,5 +1,4 @@
 {% from '@OdiseoSyliusReportPlugin/Table/List/default.html.twig' import list %}
-{% from '@OdiseoSyliusReportPlugin/Table/List/shipments.html.twig' import shipments_list %}
 
 {% set report = data.report %}
 {% set labels = data.labels %}
@@ -7,12 +6,6 @@
 
 {% if labels is defined %}
 <div class="ui segment">
-    {% if report.dataFetcher == 'odiseo_sylius_report_plugin_data_fetcher_shipments_total' %}
-        {# Shipments #}
-        {{ shipments_list(report, labels, values) }}
-    {% else %}
-        {# Default list #}
-        {{ list(report, labels, values) }}
-    {% endif %}
+    {{ list(report, labels, values) }}
 </div>
 {% endif %}

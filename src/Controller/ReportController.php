@@ -186,7 +186,7 @@ class ReportController extends ResourceController
 
         foreach ($row as $key => $value) {
             switch ($key) {
-                case 'total_cost':
+                case 'amount_total':
                     if($currencyCode) {
                         $value = $formatMoneyHelper->format((int) $value, $currencyCode, $localeCode);
                     }

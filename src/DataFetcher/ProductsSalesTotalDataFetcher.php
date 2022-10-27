@@ -30,7 +30,6 @@ class ProductsSalesTotalDataFetcher extends BaseDataFetcher
         $data = new Data();
 
         $channelId = $configuration['channel'];
-        $qm        = $this->queryFilter->getEntityManager();
 
         if ( ! $channelId) {
             return $data;
@@ -137,7 +136,6 @@ class ProductsSalesTotalDataFetcher extends BaseDataFetcher
 
         return $data[0];
     }
-
 
     /**
      * @return ProductVariantInterface[]|array
