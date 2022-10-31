@@ -30,6 +30,7 @@ odiseo_sylius_report_plugin:
             product_name: 'Produkt'
             variant_name: 'Varianta'
             sales: 'Prodeje'
+            quantity_total: 'Množství'
     menu:
         admin:
             reports: Reporty

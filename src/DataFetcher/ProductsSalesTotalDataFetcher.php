@@ -46,6 +46,7 @@ class ProductsSalesTotalDataFetcher extends BaseDataFetcher
         $labels = [
             'product_name',
             'variant_name',
+            'quantity',
             'sales',
             'currency_code',
         ];
@@ -75,10 +76,11 @@ class ProductsSalesTotalDataFetcher extends BaseDataFetcher
             $rowData = $this->getRawDataByVariant($variant, $configuration);
             //
             $rawData[] = [
-                'product_name'  => $variant->getProduct()->getName(),
-                'variant_name'  => $variant->getName(),
-                'amount_total'  => (int)$rowData['amount_total'],
-                'currency_code' => $channel->getBaseCurrency()->getCode(),
+                'product_name'   => $variant->getProduct()->getName(),
+                'variant_name'   => $variant->getName(),
+                'quantity_total' => $rowData['quantity_total'],
+                'amount_total'   => (int)$rowData['amount_total'],
+                'currency_code'  => $channel->getBaseCurrency()->getCode(),
             ];
         }
 
@@ -104,7 +106,8 @@ class ProductsSalesTotalDataFetcher extends BaseDataFetcher
         // Select
         $qb
             ->select(
-                'SUM(oi.total) AS amount_total'
+                'SUM(oi.total) AS amount_total',
+                'SUM(oi.quantity) AS quantity_total'
             )
             ->from(OrderItemInterface::class, 'oi');
 
