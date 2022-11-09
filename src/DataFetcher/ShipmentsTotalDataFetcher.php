@@ -45,6 +45,7 @@ class ShipmentsTotalDataFetcher extends BaseDataFetcher
         // Define labels for columns
         $labels = [
             'shipment_method_name',
+            'quantity',
             'total_costs',
             'currency_code',
         ];
@@ -77,6 +78,7 @@ class ShipmentsTotalDataFetcher extends BaseDataFetcher
 
             $rawData[] = [
                 'shipping_method_name'  => $method->getName(),
+                'quantity_total' => (int) $rowData['quantity_total'],
                 'amount_total'  => (int)$rowData['amount_total'],
                 'currency_code' => $channel->getBaseCurrency()->getCode(),
             ];
@@ -104,6 +106,7 @@ class ShipmentsTotalDataFetcher extends BaseDataFetcher
         // Select
         $qb
             ->select(
+                'COUNT(adj.id) AS quantity_total',
                 'SUM(adj.amount) AS amount_total'
             )
             ->from(AdjustmentInterface::class, 'adj');
